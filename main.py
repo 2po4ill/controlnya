@@ -19,6 +19,7 @@ def recursivesearch(node, value):
         return recursivesearch(node[1], value)
     return True
 
+
 def recursivecounter(node, value, cnt):
     if node[0] < value:
         cnt += 1
@@ -74,13 +75,27 @@ class SearchTree:
                 minim += 1
         return maxcnt
 
+class VersionedTree:
+    def __init__(self):
+        self.version = SearchTree()
+        self.treeversions = []
+
+    def add(self, value):
+         self.version.add(value)
+         self.treeversions.append(self.version)
+
+    def contains(self, version, value):
+        return self.treeversions[version].contains(value)
+
+    def length(self, version):
+        return self.treeversions[version].tree_length()
 
 if __name__ == "__main__":
-    Tree = SearchTree()
+    Tree = VersionedTree()
     Tree.add(2)
     Tree.add(1)
     Tree.add(3)
     Tree.add(4)
-    print(Tree.tree_length())
+    print(Tree.length(3))
 
 
